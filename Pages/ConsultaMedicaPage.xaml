@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             x:Class="VitaCare.Pages.ConsultaMedicaPage"
+             Title="Consulta Médica">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+            <DatePicker x:Name="dataPicker" Date="{x:Static sys:DateTime.Now}" />
+            <TimePicker x:Name="horaPicker" Time="08:00" />
+
+            <Entry x:Name="medicoEntry" Placeholder="Nome do médico" />
+            <Entry x:Name="localEntry" Placeholder="Local da consulta" />
+
+            <Picker x:Name="statusPicker" Title="Status">
+                <Picker.ItemsSource>
+                    <x:Array Type="{x:Type x:String}">
+                        <x:String>Agendada</x:String>
+                        <x:String>Concluída</x:String>
+                        <x:String>Cancelada</x:String>
+                    </x:Array>
+                </Picker.ItemsSource>
+            </Picker>
+
+            <Button Text="Salvar" Clicked="OnSalvarClicked" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="VitaCare.Pages.EnfermidadePage"
+             Title="Cadastro de Enfermidade">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+            <Entry x:Name="nomeEntry"
+                   Placeholder="Nome da Enfermidade"
+                   MaxLength="20" />
+
+            <Entry x:Name="observacaoEntry"
+                   Placeholder="Observação (opcional)"
+                   MaxLength="50" />
+
+            <Button Text="Salvar" Clicked="OnSalvarClicked" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

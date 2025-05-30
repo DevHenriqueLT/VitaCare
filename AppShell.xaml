@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="VitaCare.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:VitaCare"
+    xmlns:pages="clr-namespace:VitaCare.Pages"
+    Title="VitaCare">
+
+    <!-- Página inicial -->
+    <ShellContent
+        Title="Home"
+        ContentTemplate="{DataTemplate local:MainPage}"
+        Route="MainPage" />
+
+    <!-- Grupo: Usuários -->
+    <ShellContent
+        Title="Usuário"
+        ContentTemplate="{DataTemplate pages:UsuarioPage}"
+        Route="UsuarioPage" />
+
+    <ShellContent
+        Title="Lista de Usuários"
+        ContentTemplate="{DataTemplate pages:UsuarioListPage}"
+        Route="UsuarioListPage" />
+
+    <!-- Grupo: Consultas -->
+    <ShellContent
+        Title="Consulta Médica"
+        ContentTemplate="{DataTemplate pages:ConsultaMedicaPage}"
+        Route="ConsultaMedicaPage" />
+
+    <ShellContent
+        Title="Lista de Consultas"
+        ContentTemplate="{DataTemplate pages:ConsultaMedicaListPage}"
+        Route="ConsultaMedicaListPage" />
+
+    <!-- Grupo: Medicamentos -->
+    <ShellContent
+        Title="Medicamento"
+        ContentTemplate="{DataTemplate pages:MedicamentoPage}"
+        Route="MedicamentoPage" />
+
+    <ShellContent
+        Title="Lista de Medicamentos"
+        ContentTemplate="{DataTemplate pages:MedicamentoListPage}"
+        Route="MedicamentoListPage" />
+
+    <!-- Grupo: Enfermidades -->
+    <ShellContent
+        Title="Enfermidade"
+        ContentTemplate="{DataTemplate pages:EnfermidadePage}"
+        Route="EnfermidadePage" />
+
+    <ShellContent
+        Title="Lista de Enfermidades"
+        ContentTemplate="{DataTemplate pages:EnfermidadeListPage}"
+        Route="EnfermidadeListPage" />
+    <!-- 
+    <MenuItem
+        Text="Sair"
+        Clicked="OnSairClicked" />
+     -->
+
+</Shell>

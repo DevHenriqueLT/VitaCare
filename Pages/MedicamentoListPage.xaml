@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="VitaCare.Pages.MedicamentoListPage"
+             Title="Lista de Medicamentos">
+
+    <VerticalStackLayout Padding="20" Spacing="10">
+        <SearchBar x:Name="medicamentoSearchBar"
+                   Placeholder="Buscar por nome, frequência ou enfermidade"
+                   TextChanged="OnSearchBarTextChanged" />
+
+        <CollectionView x:Name="medicamentosCollectionView"
+                        SelectionMode="None">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame BorderColor="Gray" CornerRadius="10" Padding="10" Margin="0,5">
+                        <VerticalStackLayout>
+                            <Label Text="{Binding Medicamento.Nome}" FontAttributes="Bold" FontSize="16" />
+                            <Label Text="{Binding Medicamento.Dosagem}" FontSize="14" />
+                            <Label Text="{Binding Medicamento.Frequencia}" FontSize="14" />
+
+                            <!-- Nova linha exibindo as enfermidades associadas -->
+                            <Label Text="{Binding EnfermidadesFormatadas}" FontSize="13" TextColor="Gray" />
+
+                            <HorizontalStackLayout Spacing="10" Margin="0,5">
+                                <Button Text="Editar"
+                                        Clicked="OnEditarMedicamentoClicked"
+                                        CommandParameter="{Binding .}"
+                                        BackgroundColor="LightBlue"/>
+                                <Button Text="Excluir"
+                                        Clicked="OnExcluirMedicamentoClicked"
+                                        CommandParameter="{Binding .}"
+                                        BackgroundColor="LightCoral"/>
+                            </HorizontalStackLayout>
+                        </VerticalStackLayout>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </VerticalStackLayout>
+</ContentPage>
