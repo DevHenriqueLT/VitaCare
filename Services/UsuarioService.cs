@@ -40,5 +40,12 @@ namespace VitaCare.Services
         {
             return await _db.DeleteAsync(usuario);
         }
+
+        public async Task<Usuario?> ValidarLoginAsync(string nome, string senha)
+        {
+            var usuarios = await ObterTodosUsuariosAsync();
+            return usuarios.FirstOrDefault(u => u.Nome == nome && u.Senha == senha);
+        }
+
     }
 }

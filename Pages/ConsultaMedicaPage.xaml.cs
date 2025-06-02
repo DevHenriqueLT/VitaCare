@@ -42,12 +42,20 @@ namespace VitaCare.Pages
                 return;
             }
 
+            // Recupera o id do usuário autenticado
+            var userIdStr = await Microsoft.Maui.Storage.SecureStorage.Default.GetAsync("user_id");
+            if (!int.TryParse(userIdStr, out int userId))
+            {
+                await DisplayAlert("Erro", "Usuário não autenticado.", "OK");
+                return;
+            }
+
             _consultaAtual.Data = dataPicker.Date;
             _consultaAtual.Hora = horaPicker.Time;
             _consultaAtual.Medico = medicoEntry.Text;
             _consultaAtual.Local = localEntry.Text;
             _consultaAtual.Status = statusPicker.SelectedItem.ToString();
-            _consultaAtual.UsuarioId = 1; // Fixo para testes
+            _consultaAtual.UsuarioId = userId; // <-- Atribuição correta do usuário
 
             try
             {

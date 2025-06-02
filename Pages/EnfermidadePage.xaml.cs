@@ -37,9 +37,17 @@ namespace VitaCare.Pages
                 return;
             }
 
+            // Recupera o id do usuário autenticado
+            var userIdStr = await Microsoft.Maui.Storage.SecureStorage.Default.GetAsync("user_id");
+            if (!int.TryParse(userIdStr, out int userId))
+            {
+                await DisplayAlert("Erro", "Usuário não autenticado.", "OK");
+                return;
+            }
+
             _enfermidadeAtual.Nome = nomeEntry.Text.Trim();
             _enfermidadeAtual.Observacao = observacaoEntry.Text?.Trim();
-            _enfermidadeAtual.UsuarioId = 1; // Fixo para testes
+            _enfermidadeAtual.UsuarioId = userId; // <-- Atribuição correta
 
             try
             {
@@ -63,5 +71,6 @@ namespace VitaCare.Pages
                 await DisplayAlert("Erro", $"Falha ao salvar: {ex.Message}", "OK");
             }
         }
+
     }
 }

@@ -25,10 +25,11 @@ namespace VitaCare.Services
             return await _db.Table<Enfermidade>().ToListAsync();
         }
 
-        public async Task<Enfermidade> ObterEnfermidadePorIdAsync(int id)
+        public async Task<List<Enfermidade>> ObterEnfermidadesPorUsuarioAsync(int usuarioId)
         {
             return await _db.Table<Enfermidade>()
-                            .FirstOrDefaultAsync(e => e.Id == id);
+                .Where(e => e.UsuarioId == usuarioId)
+                .ToListAsync();
         }
 
         public async Task<int> AtualizarEnfermidadeAsync(Enfermidade enfermidade)

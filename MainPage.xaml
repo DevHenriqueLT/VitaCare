@@ -14,10 +14,12 @@
                     SemanticProperties.Description="logotipo do aplicativo" />
 
             <!-- Botões de navegação -->
+            <!--
             <Button Text="Usuários"
                     Clicked="OnUsuariosClicked"
                     BackgroundColor="#4169E1"
                     TextColor="White" />
+            -->
 
             <Button Text="Consultas"
                     Clicked="OnConsultasClicked"

@@ -93,9 +93,18 @@ namespace VitaCare.Pages
                 return;
             }
 
+            // Recupera o id do usuário autenticado
+            var userIdStr = await Microsoft.Maui.Storage.SecureStorage.Default.GetAsync("user_id");
+            if (!int.TryParse(userIdStr, out int userId))
+            {
+                await DisplayAlert("Erro", "Usuário não autenticado.", "OK");
+                return;
+            }
+
             _medicamentoAtual.Nome = nomeEntry.Text.Trim();
             _medicamentoAtual.Dosagem = dosagemEntry.Text.Trim();
             _medicamentoAtual.Frequencia = frequenciaEntry.Text.Trim();
+            _medicamentoAtual.UsuarioId = userId; // <-- Atribuição correta do usuário
 
             try
             {
@@ -108,7 +117,7 @@ namespace VitaCare.Pages
                     await _medicamentoService.AdicionarMedicamentoAsync(_medicamentoAtual);
                 }
 
-                // ?? Gerenciar associações com enfermidades
+                // Gerenciar associações com enfermidades
                 var selecionadas = _enfermidadesVM.Where(e => e.Selecionado).ToList();
 
                 if (_modoEdicao)

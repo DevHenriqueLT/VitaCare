@@ -1,5 +1,6 @@
 using VitaCare.Models;
 using VitaCare.Services;
+using Microsoft.Maui.Storage;
 
 namespace VitaCare.Pages
 {
@@ -22,8 +23,17 @@ namespace VitaCare.Pages
 
         private async Task CarregarEnfermidades()
         {
-            _todasEnfermidades = await _enfermidadeService.ObterTodasEnfermidadesAsync();
-            enfermidadesCollectionView.ItemsSource = _todasEnfermidades;
+            var userIdStr = await SecureStorage.Default.GetAsync("user_id");
+            if (int.TryParse(userIdStr, out int userId))
+            {
+                _todasEnfermidades = await _enfermidadeService.ObterEnfermidadesPorUsuarioAsync(userId);
+                enfermidadesCollectionView.ItemsSource = _todasEnfermidades;
+            }
+            else
+            {
+                await DisplayAlert("Erro", "Usuário não autenticado.", "OK");
+                // Opcional: redirecionar para login
+            }
         }
 
         private void OnSearchBarTextChanged(object sender, TextChangedEventArgs e)

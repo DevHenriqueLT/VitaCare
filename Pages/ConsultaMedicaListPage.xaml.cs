@@ -2,54 +2,7 @@ using VitaCare.Models;
 using VitaCare.Services;
 
 namespace VitaCare.Pages
-{
-    /*public partial class ConsultaMedicaListPage : ContentPage
-    {
-        private readonly ConsultaMedicaService _consultaService;
-
-        public ConsultaMedicaListPage()
-        {
-            InitializeComponent();
-            _consultaService = new ConsultaMedicaService();
-        }
-
-        protected override async void OnAppearing()
-        {
-            base.OnAppearing();
-            await RecarregarConsultas();
-        }
-
-        private async Task RecarregarConsultas()
-        {
-            var consultas = await _consultaService.ObterTodasConsultasAsync();
-            consultasCollectionView.ItemsSource = consultas;
-        }
-
-        private async void OnEditarConsultaClicked(object sender, EventArgs e)
-        {
-            var button = (Button)sender;
-            var consulta = (ConsultaMedica)button.CommandParameter;
-
-            await Navigation.PushAsync(new ConsultaMedicaPage(consulta));
-        }
-
-        private async void OnExcluirConsultaClicked(object sender, EventArgs e)
-        {
-            var button = (Button)sender;
-            var consulta = (ConsultaMedica)button.CommandParameter;
-
-            var confirmar = await DisplayAlert("Confirmar",
-                $"Deseja realmente excluir a consulta com {consulta.Medico} em {consulta.Data:dd/MM/yyyy}?",
-                "Sim", "Cancelar");
-
-            if (confirmar)
-            {
-                await _consultaService.RemoverConsultaAsync(consulta);
-                await DisplayAlert("Removido", "Consulta excluída com sucesso.", "OK");
-                await RecarregarConsultas();
-            }
-        }
-    }*/
+{    
     public partial class ConsultaMedicaListPage : ContentPage
     {
         private readonly ConsultaMedicaService _consultaService;
@@ -69,8 +22,17 @@ namespace VitaCare.Pages
 
         private async Task RecarregarConsultas()
         {
-            _todasConsultas = await _consultaService.ObterTodasConsultasAsync();
-            consultasCollectionView.ItemsSource = _todasConsultas;
+            var userIdStr = await SecureStorage.Default.GetAsync("user_id");
+            if (int.TryParse(userIdStr, out int userId))
+            {
+                _todasConsultas = await _consultaService.ObterConsultasPorUsuarioAsync(userId);
+                consultasCollectionView.ItemsSource = _todasConsultas;
+            }
+            else
+            {
+                await DisplayAlert("Erro", "Usuário não autenticado.", "OK");
+                // Opcional: redirecionar para login
+            }
         }
 
         private async void OnEditarConsultaClicked(object sender, EventArgs e)

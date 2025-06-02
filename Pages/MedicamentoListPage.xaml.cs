@@ -27,22 +27,31 @@ namespace VitaCare.Pages
 
         private async Task RecarregarMedicamentos()
         {
-            var medicamentos = await _medicamentoService.ObterTodosMedicamentosAsync();
-            var associacoes = await _associacaoService.ObterTodasAssociacoesAsync();
-            var enfermidades = await _enfermidadeService.ObterTodasEnfermidadesAsync();
-
-            _todosMedicamentos = medicamentos.Select(m => new MedicamentoComEnfermidades
+            var userIdStr = await SecureStorage.Default.GetAsync("user_id");
+            if (int.TryParse(userIdStr, out int userId))
             {
-                Medicamento = m,
-                Enfermidades = associacoes
-                    .Where(a => a.MedicamentoId == m.Id)
-                    .Select(a =>
-                        enfermidades.FirstOrDefault(e => e.Id == a.EnfermidadeId)?.Nome ?? "")
-                    .Where(n => !string.IsNullOrEmpty(n))
-                    .ToList()
-            }).ToList();
+                var medicamentos = await _medicamentoService.ObterMedicamentosPorUsuarioAsync(userId);
+                var associacoes = await _associacaoService.ObterTodasAssociacoesAsync();
+                var enfermidades = await _enfermidadeService.ObterTodasEnfermidadesAsync();
 
-            medicamentosCollectionView.ItemsSource = _todosMedicamentos;
+                _todosMedicamentos = medicamentos.Select(m => new MedicamentoComEnfermidades
+                {
+                    Medicamento = m,
+                    Enfermidades = associacoes
+                        .Where(a => a.MedicamentoId == m.Id)
+                        .Select(a =>
+                            enfermidades.FirstOrDefault(e => e.Id == a.EnfermidadeId)?.Nome ?? "")
+                        .Where(n => !string.IsNullOrEmpty(n))
+                        .ToList()
+                }).ToList();
+
+                medicamentosCollectionView.ItemsSource = _todosMedicamentos;
+            }
+            else
+            {
+                await DisplayAlert("Erro", "Usuário não autenticado.", "OK");
+                // Opcional: redirecionar para login
+            }
         }
 
         private void OnSearchBarTextChanged(object sender, TextChangedEventArgs e)

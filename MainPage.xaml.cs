@@ -1,4 +1,6 @@
-﻿namespace VitaCare;
+﻿using VitaCare.Pages;
+
+namespace VitaCare;
 
 public partial class MainPage : ContentPage
 {
@@ -29,6 +31,8 @@ public partial class MainPage : ContentPage
 
     private void OnSairClicked(object sender, EventArgs e)
     {
+        SecureStorage.Default.Remove("user_id");
+        Application.Current.Windows[0].Page = new LoginPage();
 #if ANDROID
         Android.OS.Process.KillProcess(Android.OS.Process.MyPid());
 #elif WINDOWS

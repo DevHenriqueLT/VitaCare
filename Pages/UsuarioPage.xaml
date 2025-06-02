@@ -12,6 +12,7 @@
             <Entry x:Name="senhaEntry" Placeholder="Senha" IsPassword="True" />
 
             <Button Text="Salvar" Clicked="OnSalvarClicked" />
+            <Button Text="Voltar" Clicked="OnVoltarClicked" />
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

@@ -1,4 +1,5 @@
 ﻿using VitaCare.Data;
+using VitaCare.Pages;
 
 namespace VitaCare
 {
@@ -25,7 +26,11 @@ namespace VitaCare
 
         protected override Window CreateWindow(IActivationState? activationState)
         {
-            return new Window(new AppShell());
+            var userId = SecureStorage.Default.GetAsync("user_id").Result;
+            if (!string.IsNullOrEmpty(userId))
+                return new Window(new AppShell());
+            else
+                return new Window(new NavigationPage(new LoginPage()));
         }
     }
 }
