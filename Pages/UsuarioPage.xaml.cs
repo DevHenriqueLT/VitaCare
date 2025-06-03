@@ -68,8 +68,8 @@ namespace VitaCare.Pages
                 try
                 {
                     await _usuarioService.AdicionarUsuarioAsync(novoUsuario);
-                    await DisplayAlert("Sucesso", "Usuário cadastrado com sucesso!", "OK");
-                    cpfEntry.Text = nomeEntry.Text = emailEntry.Text = senhaEntry.Text = string.Empty;
+                    await DisplayAlert("Sucesso", "Usuário cadastrado com sucesso! Ir para a tela inicial.", "OK");
+                    Application.Current.MainPage = new NavigationPage(new LoginPage());
                 }
                 catch (Exception ex)
                 {

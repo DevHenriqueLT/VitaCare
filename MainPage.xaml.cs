@@ -33,12 +33,12 @@ public partial class MainPage : ContentPage
     {
         SecureStorage.Default.Remove("user_id");
         Application.Current.Windows[0].Page = new LoginPage();
-#if ANDROID
+/*#if ANDROID
         Android.OS.Process.KillProcess(Android.OS.Process.MyPid());
 #elif WINDOWS
         System.Diagnostics.Process.GetCurrentProcess().Kill();
 #elif IOS
         // iOS não permite fechar o app programaticamente.
-#endif
+#endif*/
     }
 }

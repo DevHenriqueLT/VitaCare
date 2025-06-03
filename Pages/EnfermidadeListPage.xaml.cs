@@ -78,5 +78,15 @@ namespace VitaCare.Pages
                 await CarregarEnfermidades();
             }
         }
+
+        private async void OnAdicionarClicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new EnfermidadePage());
+        }
+
+        private void OnVoltarInicioClicked(object sender, EventArgs e)
+        {
+            Shell.Current.GoToAsync("//main");
+        }
     }
 }

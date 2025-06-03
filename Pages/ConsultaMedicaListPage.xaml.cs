@@ -78,5 +78,15 @@ namespace VitaCare.Pages
                 consultasCollectionView.ItemsSource = filtradas;
             }
         }
+
+        private async void OnAdicionarClicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new ConsultaMedicaPage());
+        }
+
+        private void OnVoltarInicioClicked(object sender, EventArgs e)
+        {
+            Shell.Current.GoToAsync("//main");
+        }
     }
 }
